@@ -36,7 +36,9 @@ Node.js is a perfect candidate to developing [Date Intensive Real-time Applicati
 
 A remote database can be an easy solution for this, but it's not the most optimal. Communicating with a local process is several times faster than opening remote requests from a database. And even if the database is hosted locally, the overhead of communicating with yet another program is lessened.
 
-Note that this module is still experimental. It currently works by using a process's internal messanging system.
+[clusterchat](https://github.com/fent/clusterchat), a multi process chat applicationa that uses socket.io was made with clusterchat by allowing socket.io to sync its data using [socket.io-clusterhub](https://github.com/fent/socket.io-clusterhub).
+
+Note that this module is still experimental. It currently works by using a process's internal messaging system.
 
 # API
 
