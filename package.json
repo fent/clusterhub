@@ -20,7 +20,7 @@
     "node": ">=0.6"
   },
   "dependencies": {
-    "eventvat": "https://github.com/fent/clusterhub/tarball/master"
+    "eventvat": "https://github.com/fent/EventVat/tarball/master"
   },
   "devDependencies": {
     "mocha": "0.10.x"
