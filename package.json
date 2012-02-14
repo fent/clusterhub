@@ -19,7 +19,9 @@
   "engines": {
     "node": ">=0.6"
   },
-  "bundledDependencies": ["eventvat"],
+  "dependencies": {
+    "eventvat": "https://github.com/fent/clusterhub/tarball/master"
+  },
   "devDependencies": {
     "mocha": "0.10.x"
   },
