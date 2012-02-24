@@ -2,7 +2,7 @@
   "name": "clusterhub",
   "description": "Easily and efficiently sync data in your cluster applications.",
   "keywords": ["cluster", "load balancer", "database", "multi process", "sync"],
-  "version": "0.1.0",
+  "version": "0.1.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/clusterhub.git"
