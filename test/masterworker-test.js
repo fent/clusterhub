@@ -5,7 +5,7 @@ var hub = require('..')
 
 
 if (cluster.isMaster) {
-  workers = [];
+  var workers = [];
   for (var i = 0; i < WORKERS; i++) {
     workers.push(cluster.fork());
   }
