@@ -27,7 +27,6 @@ if (cluster.isMaster) {
         worker.kill();
 
         cluster.on('death', function(worker) {
-          console.log('worker dead');
           cluster.fork();
         });
       });
