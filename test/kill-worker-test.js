@@ -40,15 +40,18 @@ if (cluster.isMaster) {
   describe('Worker', function() {
     describe('Calls hub method', function() {
       it('No errors until master finished', function(done) {
-        setInterval(function() {
-          hub.incr('foo');
-        }, Math.floor(Math.random() * 100));
-
-        setTimeout(function() {
-          hub.emit('hello');
-        }, 100);
-
         hub.on('done', done);
+
+        hub.ready(function() {
+          setInterval(function() {
+            hub.incr('foo');
+          }, Math.floor(Math.random() * 100));
+
+          setTimeout(function() {
+            hub.emit('hello');
+          }, 100);
+
+        });
       });
       
     });
