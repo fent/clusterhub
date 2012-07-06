@@ -69,7 +69,7 @@ hub.on('remotehello', function() {
 hub.emitRemote('remotehello', { hello: 'there' });
 ```
 
-All functions from [EventVat](https://github.com/hij1nx/EventVat) are included as well. Their returned value can be accessed by providing a callback as the last argument. Or directly if used by the master.
+All functions from [EventVat](https://github.com/hij1nx/EventVat) are included as well. Their returned value can be accessed by providing a callback as the last argument. Or optionally by its returned value if called by the master.
 
 #### worker process
 ```
@@ -83,9 +83,11 @@ hub.set('foo', 'bar', function() {
 #### master process
 ```
 var returnedVal = hub.incr('foo', function(val) {
+  // can be given a callback for consistency
   console.log(val === 1); // true
 });
 
+// but since it's the master process it has direct access to the database
 console.log(returnedVal === 1); // true
 ```
 
