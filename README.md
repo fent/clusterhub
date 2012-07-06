@@ -27,11 +27,13 @@ if (cluster.isMaster) {
 ```
 
 # Features
+
 * Efficient event emitter system. Clusterhub will waste no time sending an event to a process that isn't listening for it. Events from the same process of a listener will be immediately emitted.
 * In process database. Each hub has its own instance of a redis-like database powered by [EventVat](https://github.com/hij1nx/EventVat).
 * Cluster agnostic. Apps that use clusterhub will work regardless if it uses cluster or not.
 
 # Motive
+
 Node.js is a perfect candidate to developing [Date Intensive Real-time Applications](http://video.nextconf.eu/video/1914374/nodejs-digs-dirt-about). Load balancing in these applications can become complicated when having to share data between processes.
 
 A remote database can be an easy solution for this, but it's not the most optimal. Communicating with a local process is several times faster than opening remote requests from a database. And even if the database is hosted locally, the overhead of communicating with yet another program is lessened.
