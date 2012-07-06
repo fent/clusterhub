@@ -23,7 +23,7 @@
     "eventvat": "0.1.x"
   },
   "devDependencies": {
-    "mocha": "0.10.x"
+    "mocha": "x"
   },
   "licenses": [ {
     "type": "MIT",
