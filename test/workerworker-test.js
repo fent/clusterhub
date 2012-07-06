@@ -23,7 +23,7 @@ if (cluster.isMaster) {
         if (--n === 0) done();
       }
 
-      cluster.on('death', exit);
+      cluster.on('exit', exit);
     });
 
   });

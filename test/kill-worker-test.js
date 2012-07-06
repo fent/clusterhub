@@ -19,16 +19,17 @@ if (cluster.isMaster) {
 
   describe('Master', function() {
 
-    it('Waits then kill a random worker', function(done) {
+    it('Waits then destroy a random worker', function(done) {
       hub.on('done', done);
 
       hub.ready(function() {
         var worker = workers[Math.floor(Math.random() * WORKERS)];
-        worker.kill();
 
-        cluster.on('death', function(worker) {
+        cluster.on('exit', function(worker) {
           cluster.fork();
         });
+
+        worker.destroy();
       });
 
     });
@@ -43,10 +44,6 @@ if (cluster.isMaster) {
         hub.on('done', done);
 
         hub.ready(function() {
-          setInterval(function() {
-            hub.incr('foo');
-          }, Math.floor(Math.random() * 100));
-
           setTimeout(function() {
             hub.emit('hello');
           }, 100);
