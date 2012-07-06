@@ -53,9 +53,6 @@ Clusterhub already comes with a default global hub. Use this if you want to crea
 ### Hub#destroy()
 Call to disable hub from emitting and receiving remote messages/commands.
 
-### Hub#getWorkers()
-Returns an array of all workers (child processes) spawned with `cluster.fork()`.
-
 Additionally, all functions from the regular [EventEmitter](http://nodejs.org/docs/latest/api/events.html#events.EventEmitter) are included. Plus a couple of extras.
 
 ### Hub#emitLocal(event, [args...])
