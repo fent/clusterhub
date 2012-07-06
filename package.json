@@ -10,7 +10,7 @@
   "author": "fent (https://github.com/fent)",
   "main": "./lib/index.js",
   "scripts": {
-    "test": "mocha test/masterworker-test.js && mocha test/workerworker-test.js && mocha test/master-test.js && mocha test/kill-worker-test.js && mocha test/kill-master-test.js"
+    "test": "mocha test/masterworker-test.js && mocha test/workerworker-test.js && mocha test/master-test.js && mocha test/kill-worker-test.js"
 
   },
   "directories": {
