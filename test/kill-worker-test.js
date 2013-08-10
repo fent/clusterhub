@@ -1,7 +1,6 @@
-var hub = require('..')
-  , cluster = require('cluster')
-  , assert = require('assert')
-  , WORKERS = 2
+var hub = require('..');
+var cluster = require('cluster');
+var WORKERS = 2;
 
 
 if (cluster.isMaster) {
@@ -25,7 +24,7 @@ if (cluster.isMaster) {
       hub.ready(function() {
         var worker = workers[Math.floor(Math.random() * WORKERS)];
 
-        cluster.on('exit', function(worker) {
+        cluster.on('exit', function() {
           cluster.fork();
         });
 

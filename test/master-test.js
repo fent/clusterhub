@@ -1,5 +1,5 @@
-var hub = require('..')
-  , assert = require('assert')
+var hub = require('..');
+var assert = require('assert');
 
 
 describe('Listen', function() {

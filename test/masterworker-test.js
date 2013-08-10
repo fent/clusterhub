@@ -1,7 +1,7 @@
-var hub = require('..')
-  , cluster = require('cluster')
-  , assert = require('assert')
-  , WORKERS = 1
+var hub = require('..');
+var cluster = require('cluster');
+var assert = require('assert');
+var WORKERS = 1;
 
 
 if (cluster.isMaster) {
@@ -114,8 +114,8 @@ if (cluster.isMaster) {
 
     describe('removeAllListeners', function() {
       it('Does not fire any event', function(done) {
-        var a = true
-          , b = true
+        var a = true;
+        var b = true;
 
         hub.on('a', function() {
           a = false;
@@ -143,7 +143,7 @@ if (cluster.isMaster) {
             a = false;
           });
 
-          hub.removeAllListeners('a')
+          hub.removeAllListeners('a');
           hub.once('remove', function() {
             assert(a);
             done();
@@ -151,7 +151,7 @@ if (cluster.isMaster) {
 
           hub.emit('emitRemove');
         });
-      })
+      });
 
     });
   });

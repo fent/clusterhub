@@ -1,7 +1,6 @@
-var hub = require('..')
-  , cluster = require('cluster')
-  , assert = require('assert')
-  , WORKERS = 2
+var hub = require('..');
+var cluster = require('cluster');
+var WORKERS = 2;
 
 
 if (cluster.isMaster) {
