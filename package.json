@@ -1,8 +1,14 @@
 {
   "name": "clusterhub",
   "description": "Easily and efficiently sync data in your cluster applications.",
-  "keywords": ["cluster", "load balance", "database", "multi process", "sync"],
-  "version": "0.2.5",
+  "keywords": [
+    "cluster",
+    "load balance",
+    "database",
+    "multi process",
+    "sync"
+  ],
+  "version": "0.2.6",
   "repository": {
     "type": "git",
     "url": "git://github.com/fent/clusterhub.git"
@@ -11,7 +17,6 @@
   "main": "./lib/index.js",
   "scripts": {
     "test": "mocha test/masterworker-test.js && mocha test/workerworker-test.js && mocha test/master-test.js && mocha test/kill-worker-test.js"
-
   },
   "directories": {
     "lib": "./lib"
@@ -25,8 +30,10 @@
   "devDependencies": {
     "mocha": "x"
   },
-  "licenses": [ {
-    "type": "MIT",
-    "url" : "http://github.com/fent/clusterhub/raw/master/LICENSE"
-  }]
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://github.com/fent/clusterhub/raw/master/LICENSE"
+    }
+  ]
 }
