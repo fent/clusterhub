@@ -1,4 +1,4 @@
-var hub = require('..');
+var hub    = require('..');
 var assert = require('assert');
 
 

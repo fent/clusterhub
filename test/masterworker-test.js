@@ -1,6 +1,6 @@
-var hub = require('..');
+var hub     = require('..');
 var cluster = require('cluster');
-var assert = require('assert');
+var assert  = require('assert');
 var WORKERS = 1;
 
 
