@@ -98,10 +98,6 @@ console.log(returnedVal === 1); // true
 
     npm install clusterhub
 
-To use with node v0.6.x look at the v0.1.x tag.
-
-    npm install clusterhub@0.1.x
-
 
 # Tests
 Tests are written with [mocha](http://visionmedia.github.com/mocha/)
