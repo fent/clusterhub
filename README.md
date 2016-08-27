@@ -2,7 +2,9 @@
 
 An attempt at giving multi process node programs a simple and efficient way to share data.
 
-[![Build Status](https://secure.travis-ci.org/fent/clusterhub.png)](http://travis-ci.org/fent/clusterhub) [![Dependency Status](https://gemnasium.com/fent/clusterhub.svg)](https://gemnasium.com/fent/clusterhub)
+[![Build Status](https://secure.travis-ci.org/fent/clusterhub.svg)](http://travis-ci.org/fent/clusterhub)
+[![Dependency Status](https://gemnasium.com/fent/clusterhub.svg)](https://gemnasium.com/fent/clusterhub)
+[![codecov](https://codecov.io/gh/fent/clusterhub/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/clusterhub)
 
 
 # Usage
