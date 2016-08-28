@@ -25,10 +25,11 @@
     "node": ">=0.8"
   },
   "dependencies": {
-    "eventvat": "0.2.x"
+    "eventvat": "^0.2.1"
   },
   "devDependencies": {
-    "mocha": "x"
+    "istanbul": "*",
+    "mocha": "*"
   },
   "licenses": [
     {
