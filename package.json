@@ -31,10 +31,5 @@
     "istanbul": "*",
     "mocha": "*"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://github.com/fent/clusterhub/raw/master/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }
