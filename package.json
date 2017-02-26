@@ -22,7 +22,7 @@
     "lib": "./lib"
   },
   "engines": {
-    "node": ">=0.8"
+    "node": ">=0.12"
   },
   "dependencies": {
     "eventvat": "^0.2.1"
