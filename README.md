@@ -32,8 +32,8 @@ if (cluster.isMaster) {
 
 # Features
 
-* Efficient event emitter system. Clusterhub will waste no time sending an event to a process that isn't listening for it. Events from the same process of a listener will be immediately emitted.
-* In process database. Each hub has its own instance of a redis-like database powered by [EventVat](https://github.com/hij1nx/EventVat).
+* Efficient event emitter system. Clusterhub will not send an event to a process that isn't listening for it. Events from the same process of a listener will be emitted synchronously.
+* In process database. Each hub has its own instance of a redis-like database powered by [EventVat](https://github.com/0x00A/EventVat).
 * Cluster agnostic. Apps that use clusterhub will work regardless if it uses cluster or not.
 
 # Motive
