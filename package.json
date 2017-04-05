@@ -15,6 +15,9 @@
   },
   "author": "fent (https://github.com/fent)",
   "main": "./lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "test": "bash test/run-tests.sh"
   },
