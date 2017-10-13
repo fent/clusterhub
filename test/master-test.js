@@ -1,10 +1,10 @@
-var hub    = require('..');
-var assert = require('assert');
+const hub    = require('..');
+const assert = require('assert');
 
 
-describe('Listen', function() {
-  it('Emits to self', function(done) {
-    hub.on('e', function(a, b, c) {
+describe('Listen', () => {
+  it('Emits to self', (done) => {
+    hub.on('e', (a, b, c) => {
       assert.equal(a, 1);
       assert.equal(b, 2);
       assert.equal(c, 3);
@@ -14,8 +14,8 @@ describe('Listen', function() {
     hub.emit('e', 1, 2, 3);
   });
 
-  describe('and unlisten', function() {
-    it('Does not emit unlistened to event', function(done) {
+  describe('and unlisten', () => {
+    it('Does not emit unlistened to event', (done) => {
       hub.on('a', done);
       hub.on('b', done);
       hub.off('b');
@@ -24,8 +24,8 @@ describe('Listen', function() {
     });
   });
 
-  describe('once', function() {
-    it('Emits only once', function(done) {
+  describe('once', () => {
+    it('Emits only once', (done) => {
       hub.once('hi', done);
       hub.emit('hi');
       hub.emit('hi');
@@ -34,18 +34,18 @@ describe('Listen', function() {
   });
 });
 
-describe('Local EventVat database', function() {
+describe('Local EventVat database', () => {
 
-  it('Can update and access db', function(done) {
+  it('Can update and access db', (done) => {
     assert.ok(!hub.get('foo'));
-    hub.set('foo', 'bar', function(rs) {
+    hub.set('foo', 'bar', (rs) => {
       assert.ok(rs);
       done();
     });
   });
 
-  it('Emits events on function calls', function(done) {
-    hub.on('incr one', function() {
+  it('Emits events on function calls', (done) => {
+    hub.on('incr one', () => {
       hub.get('one', 1);
       done();
     });

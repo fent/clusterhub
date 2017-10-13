@@ -1,6 +1,6 @@
-var hub     = require('..');
-var cluster = require('cluster');
-var WORKERS = 2;
+const hub     = require('..');
+const cluster = require('cluster');
+const WORKERS = 2;
 
 
 if (cluster.isMaster) {
@@ -10,51 +10,49 @@ if (cluster.isMaster) {
   }
 
   var n = WORKERS;
-  hub.on('imready', function() {
+  hub.on('imready', () => {
     if (--n === 0) hub.emit('allready');
   });
 
-  describe('Master', function() {
+  describe('Master', () => {
 
-    it('Waits for workers to exit', function(done) {
+    it('Waits for workers to exit', (done) => {
       var n = WORKERS;
-      function exit() {
+      cluster.on('exit', () => {
         if (--n === 0) done();
-      }
-
-      cluster.on('exit', exit);
+      });
     });
 
   });
 
 } else {
 
-  describe('Worker', function() {
+  describe('Worker', () => {
 
-    describe('Emit message to other worker', function() {
-      it('Respond when all workers are listening', function(done) {
+    describe('Emit message to other worker', () => {
+      it('Respond when all workers are listening', (done) => {
         hub.on('fromworker', done);
 
-        hub.on('allready', function() {
+        hub.on('allready', () => {
           hub.emitRemote('fromworker');
         });
         hub.emit('imready');
       });
     });
 
-    describe('Calls hub method', function() {
+    describe('Calls hub method', () => {
 
-      it('Data should be shared amongst workers', function(done) {
+      it('Data should be shared amongst workers', (done) => {
         var n = 0;
-        hub.on('incr work', function() {
+        hub.on('incr work', () => {
           if (++n === WORKERS) {
             done();
           }
         });
 
-        hub.ready(function() {
-          setTimeout(function() {
-          hub.incr('work');
+        hub.ready(() => {
+          setTimeout(() => {
+            hub.incr('work');
           }, 100);
         });
       });

@@ -10,9 +10,9 @@ An attempt at giving multi process node programs a simple and efficient way to s
 # Usage
 
 ```js
-var cluster = require('cluster');
-var numCPUs = require('os').cpus().length;
-var hub = require('clusterhub');
+const cluster = require('cluster');
+const numCPUs = require('os').cpus().length;
+const hub = require('clusterhub');
 
 if (cluster.isMaster) {
   // Fork workers.
@@ -21,7 +21,7 @@ if (cluster.isMaster) {
   }
 
 } else {
-  hub.on('event', function(data) {
+  hub.on('event', (data) => {
     // do something with `data`
   });
 
@@ -76,17 +76,18 @@ hub.emitRemote('remotehello', { hello: 'there' });
 All functions from [EventVat](https://github.com/hij1nx/EventVat) are included as well. Their returned value can be accessed by providing a callback as the last argument. Or optionally by its returned value if called by the master.
 
 #### worker process
-```
-hub.set('foo', 'bar', function() {
-  hub.get('foo', function(val) {
+
+```js
+hub.set('foo', 'bar', () => {
+  hub.get('foo', (val) => {
     console.log(val === 'bar'); // true
   });
 });
 ```
 
 #### master process
-```
-var returnedVal = hub.incr('foo', function(val) {
+```js
+var returnedVal = hub.incr('foo', (val) => {
   // can be given a callback for consistency
   console.log(val === 1); // true
 });
