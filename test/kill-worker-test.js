@@ -1,6 +1,6 @@
-var hub     = require('..');
-var cluster = require('cluster');
-var WORKERS = 2;
+const hub     = require('..');
+const cluster = require('cluster');
+const WORKERS = 2;
 
 
 if (cluster.isMaster) {
@@ -10,21 +10,21 @@ if (cluster.isMaster) {
   }
 
   var n = WORKERS;
-  hub.on('hello', function() {
+  hub.on('hello', () => {
     if (--n === 0) {
       hub.emit('done');
     }
   });
 
-  describe('Master', function() {
+  describe('Master', () => {
 
-    it('Waits then destroy a random worker', function(done) {
+    it('Waits then destroy a random worker', (done) => {
       hub.on('done', done);
 
-      hub.ready(function() {
+      hub.ready(() => {
         var worker = workers[Math.floor(Math.random() * WORKERS)];
 
-        cluster.on('exit', function() {
+        cluster.on('exit', () => {
           cluster.fork();
         });
 
@@ -37,13 +37,13 @@ if (cluster.isMaster) {
 
 } else {
 
-  describe('Worker', function() {
-    describe('Calls hub method', function() {
-      it('No errors until master finished', function(done) {
+  describe('Worker', () => {
+    describe('Calls hub method', () => {
+      it('No errors until master finished', (done) => {
         hub.on('done', done);
 
-        hub.ready(function() {
-          setTimeout(function() {
+        hub.ready(() => {
+          setTimeout(() => {
             hub.emit('hello');
           }, 100);
 
