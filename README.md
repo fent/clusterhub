@@ -16,7 +16,7 @@ const hub = require('clusterhub');
 
 if (cluster.isMaster) {
   // Fork workers.
-  for (var i = 0; i < numCPUs; i++) {
+  for (let i = 0; i < numCPUs; i++) {
     cluster.fork();
   }
 
@@ -87,7 +87,7 @@ hub.set('foo', 'bar', () => {
 
 #### master process
 ```js
-var returnedVal = hub.incr('foo', (val) => {
+let returnedVal = hub.incr('foo', (val) => {
   // can be given a callback for consistency
   console.log(val === 1); // true
 });
