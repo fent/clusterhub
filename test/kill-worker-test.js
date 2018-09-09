@@ -4,12 +4,12 @@ const WORKERS = 2;
 
 
 if (cluster.isMaster) {
-  var workers = [];
-  for (var i = 0; i < WORKERS; i++) {
+  const workers = [];
+  for (let i = 0; i < WORKERS; i++) {
     workers.push(cluster.fork());
   }
 
-  var n = WORKERS;
+  let n = WORKERS;
   hub.on('hello', () => {
     if (--n === 0) {
       hub.emit('done');
@@ -17,12 +17,11 @@ if (cluster.isMaster) {
   });
 
   describe('Master', () => {
-
-    it('Waits then destroy a random worker', (done) => {
+    it('Waits then destroys a random worker', (done) => {
       hub.on('done', done);
 
       hub.ready(() => {
-        var worker = workers[Math.floor(Math.random() * WORKERS)];
+        let worker = workers[Math.floor(Math.random() * WORKERS)];
 
         cluster.on('exit', () => {
           cluster.fork();
@@ -30,9 +29,7 @@ if (cluster.isMaster) {
 
         worker.destroy();
       });
-
     });
-
   });
 
 } else {
@@ -43,13 +40,9 @@ if (cluster.isMaster) {
         hub.on('done', done);
 
         hub.ready(() => {
-          setTimeout(() => {
-            hub.emit('hello');
-          }, 100);
-
+          setTimeout(() => { hub.emit('hello'); }, 100);
         });
       });
-      
     });
   });
 
