@@ -4,12 +4,12 @@ const WORKERS = 2;
 
 
 if (cluster.isMaster) {
-  var workers = [];
-  for (var i = 0; i < WORKERS; i++) {
+  const workers = [];
+  for (let i = 0; i < WORKERS; i++) {
     workers.push(cluster.fork());
   }
 
-  var n = WORKERS;
+  let n = WORKERS;
   hub.on('imready', () => {
     if (--n === 0) hub.emit('allready');
   });
@@ -17,7 +17,7 @@ if (cluster.isMaster) {
   describe('Master', () => {
 
     it('Waits for workers to exit', (done) => {
-      var n = WORKERS;
+      let n = WORKERS;
       cluster.on('exit', () => {
         if (--n === 0) done();
       });
@@ -43,7 +43,7 @@ if (cluster.isMaster) {
     describe('Calls hub method', () => {
 
       it('Data should be shared amongst workers', (done) => {
-        var n = 0;
+        let n = 0;
         hub.on('incr work', () => {
           if (++n === WORKERS) {
             done();
@@ -51,9 +51,7 @@ if (cluster.isMaster) {
         });
 
         hub.ready(() => {
-          setTimeout(() => {
-            hub.incr('work');
-          }, 100);
+          setTimeout(() => { hub.incr('work'); }, 100);
         });
       });
       

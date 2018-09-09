@@ -5,8 +5,8 @@ const WORKERS = 1;
 
 
 if (cluster.isMaster) {
-  var workers = [];
-  for (var i = 0; i < WORKERS; i++) {
+  const workers = [];
+  for (let i = 0; i < WORKERS; i++) {
     workers.push(cluster.fork());
   }
 
@@ -45,7 +45,7 @@ if (cluster.isMaster) {
     });
 
     it('Waits for workers to exit', (done) => {
-      var n = WORKERS;
+      let n = WORKERS;
       cluster.on('exit', () => {
         if (--n === 0) done();
       });
@@ -92,7 +92,7 @@ if (cluster.isMaster) {
 
     describe('set', () => {
       it('gets correct value', (done) => {
-        var foo = false;
+        let foo = false;
         hub.on('set foo', (v) => {
           foo = v;
         });
@@ -112,8 +112,8 @@ if (cluster.isMaster) {
 
     describe('removeAllListeners', () => {
       it('Does not fire any event', (done) => {
-        var a = true;
-        var b = true;
+        let a = true;
+        let b = true;
 
         hub.on('a', () => {
           a = false;
@@ -136,7 +136,7 @@ if (cluster.isMaster) {
 
       describe('with explicit event', () => {
         it('Does not fire event', (done) => {
-          var a = true;
+          let a = true;
           hub.on('a', () => {
             a = false;
           });
