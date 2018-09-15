@@ -14,7 +14,7 @@ describe('Listen', () => {
     hub.emit('e', 1, 2, 3);
   });
 
-  describe('and unlisten', () => {
+  describe('And unlisten', () => {
     it('Does not emit unlistened to event', (done) => {
       hub.on('a', done);
       hub.on('b', done);

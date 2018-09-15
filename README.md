@@ -33,8 +33,7 @@ if (cluster.isMaster) {
 # Features
 
 * Efficient event emitter system. Clusterhub will not send an event to a process that isn't listening for it. Events from the same process of a listener will be emitted synchronously.
-* In process database. Each hub has its own instance of a redis-like database powered by [EventVat](https://github.com/0x00A/EventVat).
-* Cluster agnostic. Apps that use clusterhub will work regardless if it uses cluster or not.
+* In process database. Each hub has its own instance of a redis-like database powered by [EventVat][eventvat].
 
 # Motive
 
@@ -42,7 +41,7 @@ Node.js is a perfect candidate to developing [Date Intensive Real-time Applicati
 
 A remote database can be an easy solution for this, but it's not the most optimal. Communicating with a local process is several times faster than opening remote requests from a database. And even if the database is hosted locally, the overhead of communicating with yet another program is lessened.
 
-Note that this module is still experimental. It currently works by using a process's internal messaging system.
+Note that this module is experimental. It currently works by using a process's internal messaging system.
 
 ## Made with Clusterhub
 
@@ -52,28 +51,30 @@ Note that this module is still experimental. It currently works by using a proce
 # API
 
 ### hub.createHub(id)
-Clusterhub already comes with a default global hub. Use this if you want to create a custom hub.
+Clusterhub already comes with a default global hub. But you can use this if you want to create more.
 
 ### Hub#destroy()
 Call to disable hub from emitting and receiving remote messages/commands.
 
 Additionally, all functions from the regular [EventEmitter](http://nodejs.org/docs/latest/api/events.html#events.EventEmitter) are included. Plus a couple of extras.
 
-### Hub#emitLocal(event, [args...])
-Use this to emit an event only to the current process.
+### Hub#emitLocal(event, ...args)
+Emit an event only to the current process.
 
-### Hub#emitRemote(event, [args...])
-Use this to emit an event only to other worker processes and master. Or only to workers if the current process is the master.
+### Hub#emitRemote(event, ...args)
+Emit an event only to other worker processes and master. Or only to workers if the current process is the master.
 
 ```js
-hub.on('remotehello', function() {
-  // hello from another process
+hub.on('remotehello', () => {
+  // Hello from another process.
 });
 
 hub.emitRemote('remotehello', { hello: 'there' });
 ```
 
-All functions from [EventVat](https://github.com/hij1nx/EventVat) are included as well. Their returned value can be accessed by providing a callback as the last argument. Or optionally by its returned value if called by the master.
+All functions from [EventVat][eventvat] are included as well. Their returned value can be accessed by providing a callback as the last argument. Or optionally by its returned value if called by the master.
+
+[eventvat]: https://github.com/hij1nx/EventVat
 
 #### worker process
 
@@ -88,11 +89,11 @@ hub.set('foo', 'bar', () => {
 #### master process
 ```js
 let returnedVal = hub.incr('foo', (val) => {
-  // can be given a callback for consistency
+  // Can be given a callback for consistency.
   console.log(val === 1); // true
 });
 
-// but since it's the master process it has direct access to the database
+// But since it's the master process it has direct access to the database.
 console.log(returnedVal === 1); // true
 ```
 

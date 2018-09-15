@@ -1,49 +1,36 @@
 const hub     = require('..');
 const cluster = require('cluster');
+const fork    = require('./fork');
 const WORKERS = 2;
 
 
-if (cluster.isMaster) {
-  const workers = [];
-  for (let i = 0; i < WORKERS; i++) {
-    workers.push(cluster.fork());
-  }
+if (cluster.isWorker) throw Error('file should not run under worker');
 
-  let n = WORKERS;
-  hub.on('hello', () => {
-    if (--n === 0) {
-      hub.emit('done');
+describe('Kill and resurrect a random worker', () => {
+  it('Worker is able to reconnect to hub', (done) => {
+    const workers = [];
+    for (let i = 0; i < WORKERS; i++) {
+      workers.push(fork('worker-kill.js'));
     }
-  });
+    after(cluster.disconnect);
 
-  describe('Master', () => {
-    it('Waits then destroys a random worker', (done) => {
-      hub.on('done', done);
+    let n = WORKERS;
+    hub.on('hello', () => {
+      if (--n === 0) {
+        hub.emit('done');
+      }
+    });
 
-      hub.ready(() => {
-        let worker = workers[Math.floor(Math.random() * WORKERS)];
+    hub.on('done', done);
 
-        cluster.on('exit', () => {
-          cluster.fork();
-        });
+    hub.ready(() => {
+      let worker = workers[Math.floor(Math.random() * WORKERS)];
 
-        worker.destroy();
+      cluster.once('exit', () => {
+        fork('worker-kill.js');
       });
+
+      worker.destroy();
     });
   });
-
-} else {
-
-  describe('Worker', () => {
-    describe('Calls hub method', () => {
-      it('No errors until master finished', (done) => {
-        hub.on('done', done);
-
-        hub.ready(() => {
-          setTimeout(() => { hub.emit('hello'); }, 100);
-        });
-      });
-    });
-  });
-
-}
+});
