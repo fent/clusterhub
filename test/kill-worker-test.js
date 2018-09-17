@@ -7,6 +7,9 @@ const WORKERS = 2;
 if (cluster.isWorker) throw Error('file should not run under worker');
 
 describe('Kill and resurrect a random worker', () => {
+  afterEach(cluster.disconnect);
+  afterEach(() => hub.reset());
+
   it('Worker is able to reconnect to hub', (done) => {
     const workers = [];
     for (let i = 0; i < WORKERS; i++) {

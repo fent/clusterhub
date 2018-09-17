@@ -17,6 +17,8 @@ describe('Worker to worker inter-communication', () => {
       if (--n === 0) hub.emit('allready');
     });
   });
+  afterEach(cluster.disconnect);
+  afterEach(() => hub.reset());
 
   it('Waits for workers to finish and exit', (done) => {
     let n = WORKERS;
