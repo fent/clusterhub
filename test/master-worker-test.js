@@ -44,8 +44,10 @@ describe('Communicate from master to workers', () => {
   describe('Send a badly formatted messages to each other', () => {
     it('Master and worker ignore it', (done) => {
       const worker = fork('worker-bad-msg.js');
-      worker.send({});
       hub.on('done', done);
+      hub.ready(() => {
+        worker.send({});
+      });
     });
   });
 
