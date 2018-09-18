@@ -1,6 +1,7 @@
 const hub     = require('..');
 const cluster = require('cluster');
 const assert  = require('assert');
+const path    = require('path');
 const fork    = require('./fork');
 
 
@@ -23,13 +24,14 @@ describe('Communicate from master to workers', () => {
   it('Listens for set and get event', (done) => {
     fork('worker-master-2.js');
     hub.on('set foo', (value) => {
-      assert.equal(value, 42);
+      assert.equal(value, 66);
       hub.set('bar', 'dog');
     });
     hub.on('result', (value) => {
       assert.equal(value, 'DOG');
       done();
     });
+    hub.set('value', 24);
   });
 
   it('Does not emit worker to worker events', (done) => {
@@ -41,12 +43,29 @@ describe('Communicate from master to workers', () => {
     });
   });
 
+  it('Listens and unlistens to events in order', (done) => {
+    fork('worker-master-4.js');
+    hub.removeAllListeners('hi');
+    const f = () => {};
+    hub.on('hi', f);
+    hub.on('hi', () => {
+      hub.off('hi', f);
+      hub.off('hi', f);
+      done();
+    });
+    hub.off('hi', () => {});
+    hub.emit('call');
+  });
+
   describe('Send a badly formatted messages to each other', () => {
     it('Master and worker ignore it', (done) => {
       const worker = fork('worker-bad-msg.js');
       hub.on('done', done);
       hub.ready(() => {
+        const dir = path.resolve(__dirname, '../lib');
+        worker.send({ dir, hub: 'none' });
         worker.send({});
+        hub.emit('ok');
       });
     });
   });
@@ -58,4 +77,5 @@ describe('Communicate from master to workers', () => {
       hub.emit('bad');
     });
   });
+
 });

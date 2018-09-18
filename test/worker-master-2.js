@@ -1,6 +1,9 @@
 const hub = require('..');
 
 hub.on('set bar', (value) => {
+  hub.removeAllListeners('foo bar');
   hub.emit('result', value.toUpperCase());
 });
-hub.set('foo', 42);
+hub.get('value', (value) => {
+  hub.set('foo', value + 42);
+});
