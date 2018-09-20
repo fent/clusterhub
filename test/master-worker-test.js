@@ -104,8 +104,9 @@ describe('Communicate from master to workers', () => {
       fork('worker-emit-fn-3.js');
       hub._maxFuncs = 1;
       after(() => hub._maxFuncs = 100);
+      let n = 2;
       hub.emit('bad-good', done, () => {
-        throw Error('should not be called');
+        if (--n == 0) throw Error('should not be called');
       });
     });
   });
