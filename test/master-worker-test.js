@@ -1,8 +1,9 @@
-const hub     = require('..');
-const cluster = require('cluster');
-const assert  = require('assert');
-const path    = require('path');
-const fork    = require('./fork');
+const hub      = require('..');
+const commands = require('../lib/globals').commands;
+const cluster  = require('cluster');
+const assert   = require('assert');
+const path     = require('path');
+const fork     = require('./fork');
 
 
 if (cluster.isWorker) throw Error('file should not run under worker');
@@ -64,6 +65,8 @@ describe('Communicate from master to workers', () => {
       hub.ready(() => {
         const dir = path.resolve(__dirname, '../lib');
         worker.send({ dir, hub: 'none' });
+        worker.send({ dir, hub: '', cmd: commands.CB, key: -1 });
+        worker.send({ dir, hub: '', cmd: commands.FN, key: -1 });
         worker.send({});
         hub.emit('ok');
       });
@@ -75,6 +78,35 @@ describe('Communicate from master to workers', () => {
       fork('worker-get-msg.js');
       hub.on('done', done);
       hub.emit('bad');
+    });
+  });
+
+  describe('Emit event with a callback', () => {
+    it('Function gets sent to worker then back to master', (done) => {
+      fork('worker-emit-fn-1.js');
+      hub.emit('my-done', done);
+      hub.on('same-done', (done2) => done2());
+    });
+
+    it('Function gets sent between workers', (done) => {
+      const WORKERS = 2;
+      for (let i = 0; i < WORKERS; i++) {
+        fork('worker-emit-fn-2.js');
+      }
+      let n = WORKERS;
+      hub.on('sum', (sum) => {
+        assert.equal(sum, 4);
+        if (--n === 0) done();
+      });
+    });
+
+    it('Deleted func does nothing', (done) => {
+      fork('worker-emit-fn-3.js');
+      hub._maxFuncs = 1;
+      after(() => hub._maxFuncs = 100);
+      hub.emit('bad-good', done, () => {
+        throw Error('should not be called');
+      });
     });
   });
 
