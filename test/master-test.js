@@ -26,10 +26,16 @@ describe('Listen', () => {
 
   describe('once', () => {
     it('Emits only once', (done) => {
-      hub.once('hi', done);
-      hub.emit('hi');
-      hub.emit('hi');
-      hub.emit('hi');
+      hub.prependOnceListener('ih', () => {
+        hub.once('hi', done);
+        hub.emit('hi');
+        hub.emit('hi');
+        hub.emit('hi');
+      });
+      hub.emit('ih');
+      hub.emit('ih');
+      hub.emit('ih');
+      hub.emit('ih');
     });
   });
 });

@@ -58,6 +58,23 @@ describe('Communicate from master to workers', () => {
     hub.emit('call');
   });
 
+  it('Listeners are called in order', (done) => {
+    fork('worker-master-order.js');
+    const results = [];
+    hub.on('the-event', () => results.push(1));
+    hub.on('the-event', () => results.push(2));
+    hub.prependListener('the-event', () => results.push(3));
+    let doneCall = false;
+    hub.on('after', () => {
+      assert.equal(doneCall, true);
+    });
+    hub.prependManyListener(2, 'after', () => {
+      doneCall = true;
+      assert.deepEqual(results, [3, 1, 2]);
+      done();
+    });
+  });
+
   describe('Send a badly formatted messages to each other', () => {
     it('Master and worker ignore it', (done) => {
       const worker = fork('worker-bad-msg.js');
