@@ -4,7 +4,7 @@ An attempt at giving multi process node programs a simple and efficient way to s
 
 [![Build Status](https://secure.travis-ci.org/fent/clusterhub.svg)](http://travis-ci.org/fent/clusterhub)
 [![Dependency Status](https://david-dm.org/fent/clusterhub.svg)](https://david-dm.org/fent/clusterhub)
-[![codecov](https://codecov.io/gh/fent/clusterhub/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/clusterhub)
+[![codecov](https://codecov.io/gh/fent/clusterhub/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/clusterhub) [![Greenkeeper badge](https://badges.greenkeeper.io/fent/clusterhub.svg)](https://greenkeeper.io/)
 
 
 # Usage
