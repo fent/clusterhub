@@ -1,10 +1,9 @@
 # clusterhub
 
-An attempt at giving multi process node programs a simple and efficient way to share data.
+> [!WARNING]
+> This project is no longer maintained and has been archived.
 
-[![Build Status](https://secure.travis-ci.org/fent/clusterhub.svg)](http://travis-ci.org/fent/clusterhub)
-![Depfu](https://img.shields.io/depfu/fent/clusterhub)
-[![codecov](https://codecov.io/gh/fent/clusterhub/branch/master/graph/badge.svg)](https://codecov.io/gh/fent/clusterhub)
+An attempt at giving multi process node programs a simple and efficient way to share data.
 
 
 # Usage
